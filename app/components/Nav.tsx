@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { auth, signIn, signOut } from "../auth";
+import Link from "next/link";
 
 export default async function Nav() {
   const session = await auth();
@@ -20,7 +21,9 @@ export default async function Nav() {
                 <button type="submit">Sign Out</button>
               </form>
 
-              <span>{session?.user.name}</span>
+              <Link href={`/user/${session?.user.id}`}>
+                <span>{session?.user.name}</span>
+              </Link>
             </div>
           ) : (
             <>
