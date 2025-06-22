@@ -10,7 +10,10 @@ const nextConfig: NextConfig = {
         hostname: '*'
       }
     ]
-  }
+  },
+  experimental: {
+    ppr: 'incremental'
+  },
 };
 
 export default nextConfig;
