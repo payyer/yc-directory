@@ -8,6 +8,7 @@ import markdownit from "markdown-it";
 import { Suspense } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 import View from "@/components/View";
+import { auth } from "@/app/auth";
 
 // export const experimental = true;
 const md = markdownit();
