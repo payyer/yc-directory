@@ -5,6 +5,9 @@ import { Link } from "lucide-react";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import markdownit from "markdown-it";
+import { Suspense } from "react";
+import { Skeleton } from "@/components/ui/skeleton";
+import View from "@/components/View";
 
 // export const experimental = true;
 const md = markdownit();
@@ -59,12 +62,21 @@ export default async function Page({
           <h3 className="text-30-bold">Pitch Details</h3>
           {parsedContent ? (
             <article
+              className="prose max-w-4xl font-work-sans break-all"
               dangerouslySetInnerHTML={{ __html: parsedContent }}
             ></article>
           ) : (
             <p className="no-result">No details provided</p>
           )}
+
+          <hr className="divider" />
+
+          {/* TODO: EDITOR  */}
         </div>
+
+        <Suspense fallback={<Skeleton className="view_skeleton" />}>
+          <View id={id} />
+        </Suspense>
       </section>
     </>
   );
