@@ -1,16 +1,15 @@
 import { STARTUPS_BY_ID_QUERY } from "@/lib/queries";
 import { formatDate } from "@/lib/utils";
 import { client } from "@/sanity/lib/client";
-import { Link } from "lucide-react";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import markdownit from "markdown-it";
 import { Suspense } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 import View from "@/components/View";
-import { auth } from "@/app/auth";
+import Link from "next/link";
 
-// export const experimental = true;
+export const experimental = true;
 const md = markdownit();
 export default async function Page({
   params,
@@ -19,28 +18,29 @@ export default async function Page({
 }) {
   const id = (await params).id;
   const post = await client.fetch(STARTUPS_BY_ID_QUERY, { id });
+  console.log(post);
   if (!post) return notFound();
   const parsedContent = md.render(post?.pitch || "");
 
   return (
     <>
-      <section className="pink_container !min-h-[230px]">
+      <section className="pink_container !min-h-[230px] overflow-hidden">
         <p className="tag">{formatDate(post?._createdAt)}</p>
         <h1 className="heading">{post?.title}</h1>
         <p className="sub-heading !max-w-5xl">{post?.description}</p>
       </section>
 
-      <section className="section_container">
+      <section className="section_container ">
         <img
           src={post?.image}
           alt="thumnail"
           className="w-full h-auto rounded-xl "
         />
 
-        <div className="space-y-5 mt-10 max-w-4xl">
+        <div className="space-y-5 mt-10 max-w-4xl mx-auto">
           <div className="flex-between gap-5">
             <Link
-              href={`/user/${post?.author?.id}`}
+              href={`/user/${post?.author?._id}`}
               className="flex gap-2 items-center mb-3"
             >
               <Image

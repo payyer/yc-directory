@@ -9,11 +9,12 @@ import { Send } from "lucide-react";
 import { formSchema } from "@/lib/validation";
 import { z } from "zod";
 import { toast } from "sonner";
-// import { useRouter } from "next/router";
+import { createPitch } from "@/lib/actions";
+import { useRouter } from "next/navigation";
 function StartupForm() {
   const [error, setError] = useState<Record<string, string>>({});
   const [pitch, setPitch] = useState("");
-  // const router = useRouter();
+  const router = useRouter();
 
   const handleFormSubmit = async (prevState: any, formData: FormData) => {
     try {
@@ -27,16 +28,15 @@ function StartupForm() {
 
       await formSchema.parseAsync(formValues);
 
-      // const result = await createIdea(prevState, formData, pitch);
-      // console.log(result);
+      const result = await createPitch(prevState, formData, pitch);
 
-      // if (result.status === "SUCCESS") {
-      //   toast("Success", {
-      //     description: "Your startup pitch has been created successfully",
-      //   });
-      //   router.push(`/starup/${result.id}`);
-      // }
-      // return result
+      if (result.status === "SUCCESS") {
+        toast("Success", {
+          description: "Your startup pitch has been created successfully",
+        });
+        router.push(`/startup/${result._id}`);
+      }
+      return result;
     } catch (error) {
       if (error instanceof z.ZodError) {
         const fieldErrors = error.flatten().fieldErrors;
