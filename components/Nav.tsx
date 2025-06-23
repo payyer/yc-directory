@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { auth, signIn, signOut } from "../app/auth";
 import Link from "next/link";
+import { BadgePlus, LogOut } from "lucide-react";
 
 export default async function Nav() {
   const session = await auth();
@@ -14,11 +15,7 @@ export default async function Nav() {
           {session && session?.user ? (
             <div className="flex gap-5">
               <Link href={`/startup/create}`}>
-                <span>Create</span>
-              </Link>
-
-              <Link href={`/user/${session?.user.id}`}>
-                <span>{session?.user.name}</span>
+                <BadgePlus className="size-6 text-red-500" />
               </Link>
 
               <form
@@ -27,8 +24,20 @@ export default async function Nav() {
                   await signOut({ redirectTo: "/" });
                 }}
               >
-                <button type="submit">Sign Out</button>
+                <button type="submit" className="cursor-pointer">
+                  <LogOut className="size-6  text-red-500" />
+                </button>
               </form>
+
+              <Link href={`/user/${session?.id}`}>
+                <Image
+                  src={session?.user?.image}
+                  width={32}
+                  height={32}
+                  alt={session?.user?.name}
+                  className="rounded-full border border-black"
+                />
+              </Link>
             </div>
           ) : (
             <>

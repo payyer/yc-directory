@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Button } from "./ui/button";
 import { Author, Startup } from "@/sanity/types";
+import { Skeleton } from "./ui/skeleton";
 
 export type StartupCardType = Omit<Startup, "author"> & { author?: Author };
 
@@ -40,7 +41,7 @@ export default function StartupCard({ post }: { post: StartupCardType }) {
         </div>
         <Link href={`/user/${author?._id}`}>
           <Image
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQW2Jerdx1QEre77oFaf4qB-qeNpXaCWyUWNA&s"
+            src={author?.image as string}
             alt=""
             width={48}
             height={48}

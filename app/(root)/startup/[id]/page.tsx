@@ -9,7 +9,8 @@ import { Skeleton } from "@/components/ui/skeleton";
 import View from "@/components/View";
 import Link from "next/link";
 
-export const experimental = true;
+export const experimental_ppr = true;
+
 const md = markdownit();
 export default async function Page({
   params,
