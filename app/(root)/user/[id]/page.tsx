@@ -16,7 +16,6 @@ export default async function Page({
   const session = await auth();
   const id = (await params).id;
   const user = await client.fetch(AUTHOR_BY_ID_QUERY, { id });
-  console.log({ user });
   if (!user) return notFound();
 
   return (
