@@ -18,7 +18,7 @@ export default async function View({ id }: { id: string }) {
   );
 
   return (
-    <div className="view-container">
+    <div className="view-container !bottom-[80px] !right-[20px]">
       <div className="absolute -top-2 -right-2">
         <Ping />
       </div>

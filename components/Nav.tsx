@@ -1,6 +1,6 @@
+import Link from "next/link";
 import Image from "next/image";
 import { auth, signIn, signOut } from "../app/auth";
-import Link from "next/link";
 import { BadgePlus, LogOut } from "lucide-react";
 
 export default async function Nav() {
